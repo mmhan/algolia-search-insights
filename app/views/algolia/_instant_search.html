@@ -1,0 +1,74 @@
+<div class="ais-InstantSearch">
+  <h1>InstantSearch.js e-commerce demo</h1>
+
+  <div class="left-panel">
+    <div id="clear-refinements"></div>
+
+    <h2>Brands</h2>
+    <div id="brand-list"></div>
+  </div>
+
+  <div class="right-panel">
+    <div id="searchbox" class="ais-SearchBox"></div>
+    <div id="hits"></div>
+    <div id="pagination"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+<script>
+const search = instantsearch({
+  indexName: 'demo_ecommerce',
+  searchClient: algoliasearch('B1G2GM9NG0', 'aadef574be1f9252bb48d4ea09b5cfe5'),
+});
+
+let customHits = instantsearch.connectors.connectHits((renderOptions, isFirstRender) => {
+  const {
+    hits, //object[]
+    sendEvent, //fn
+    widgetParams, // object
+  } = renderOptions;
+
+  widgetParams.container.innerHTML = '';
+  let container = document.querySelector(widgetParams.container);
+  hits.forEach(hit => {
+    let a = document.createElement('a');
+    a.innerText = hit.name;
+    a.href = '/search/show';
+    a.addEventListener('click', (e) => {
+      sendEvent('click', hits, 'Result link clicked');
+    })
+    container.appendChild(a);
+    container.appendChild(document.createElement('br'));
+  });
+});
+
+search.addWidgets([
+  instantsearch.widgets.searchBox({
+    container: '#searchbox',
+  }),
+  instantsearch.widgets.clearRefinements({
+    container: '#clear-refinements',
+  }),
+  instantsearch.widgets.refinementList({
+    container: '#brand-list',
+    attribute: 'brand',
+  }),
+  customHits({
+    container: '#hits'
+  }),
+  instantsearch.widgets.pagination({
+    container: '#pagination',
+  }),
+]);
+
+search.use(
+  instantsearch.middlewares.createInsightsMiddleware({
+    insightsClient: window.aa,
+  })
+);
+window.aa('setUserToken', 'my-user-token');
+
+search.start();
+</script>

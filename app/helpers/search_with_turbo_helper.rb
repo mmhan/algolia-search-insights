@@ -1,0 +1,2 @@
+module SearchWithTurboHelper
+end
