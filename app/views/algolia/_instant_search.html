@@ -21,6 +21,7 @@
 const search = instantsearch({
   indexName: 'demo_ecommerce',
   searchClient: algoliasearch('B1G2GM9NG0', 'aadef574be1f9252bb48d4ea09b5cfe5'),
+  routing: true
 });
 
 let customHits = instantsearch.connectors.connectHits((renderOptions, isFirstRender) => {
