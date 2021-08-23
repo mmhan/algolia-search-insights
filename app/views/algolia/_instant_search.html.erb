@@ -44,7 +44,7 @@ search.addWidgets([
         <div>
           <img src="${hit.image}" align="left" alt="${hit.name}" />
           <div class="hit-name">
-            <a href="/search/show">${hit.name}</a>
+            <a href="/search/show" ${bindEvent('click', hit, 'my-click-event')}>${hit.name}</a>
           </div>
           <div>
            <button ${bindEvent('click', hit, 'my-click-event')}>
