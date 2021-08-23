@@ -56,8 +56,26 @@ search.addWidgets([
     container: '#brand-list',
     attribute: 'brand',
   }),
-  customHits({
-    container: '#hits'
+  instantsearch.widgets.hits({
+    container: '#hits',
+    templates: {
+      item: (hit, bindEvent) => `
+        <div>
+          <img src="${hit.image}" align="left" alt="${hit.name}" />
+          <div class="hit-name">
+            <a href="/search/show">${hit.name}</a>
+          </div>
+          <div>
+           <button ${bindEvent('click', hit, 'my-click-event')}>
+             Click event
+           </button>
+           <button ${bindEvent('conversion', hit, 'my-conversion-event')}>
+             Conversion event
+           </button>
+          </div>
+        </div>
+      `,
+    },
   }),
   instantsearch.widgets.pagination({
     container: '#pagination',
