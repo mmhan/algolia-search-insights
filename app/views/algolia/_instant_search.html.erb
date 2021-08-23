@@ -21,28 +21,9 @@
 const search = instantsearch({
   indexName: 'demo_ecommerce',
   searchClient: algoliasearch('B1G2GM9NG0', 'aadef574be1f9252bb48d4ea09b5cfe5'),
+  <% if routing %>
   routing: true
-});
-
-let customHits = instantsearch.connectors.connectHits((renderOptions, isFirstRender) => {
-  const {
-    hits, //object[]
-    sendEvent, //fn
-    widgetParams, // object
-  } = renderOptions;
-
-  widgetParams.container.innerHTML = '';
-  let container = document.querySelector(widgetParams.container);
-  hits.forEach(hit => {
-    let a = document.createElement('a');
-    a.innerText = hit.name;
-    a.href = '/search/show';
-    a.addEventListener('click', (e) => {
-      sendEvent('click', hits, 'Result link clicked');
-    })
-    container.appendChild(a);
-    container.appendChild(document.createElement('br'));
-  });
+  <% end %>
 });
 
 search.addWidgets([
