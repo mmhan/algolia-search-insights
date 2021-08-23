@@ -169,7 +169,7 @@ GEM
     thor (1.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    turbo-rails (0.7.3)
+    turbo-rails (0.7.4)
       rails (>= 6.0.0)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
@@ -210,7 +210,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3 (~> 1.4)
-  turbo-rails
+  turbo-rails (~> 0.7.4)
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
